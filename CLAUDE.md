@@ -85,11 +85,11 @@ python3 scripts/webapp/app.py             # CRM web UI at http://localhost:5050
 
 ## Testing
 
-Tests are `unittest`-style (`tests/test_fetch_page_ssr.py`, using `unittest.mock` — no network):
+Tests are pytest-style classes (`tests/test_fetch_page_ssr.py`, using `unittest.mock`, no network).
+`unittest discover` does not collect them, so run them with pytest (`pip install pytest`):
 
 ```bash
-python3 -m unittest discover -s tests -p 'test_*.py'   # all tests
-python3 -m pytest tests/                                # or via pytest
+python3 -m pytest tests/                                        # all tests
 python3 -m pytest tests/test_fetch_page_ssr.py -k ssr_content   # a single test
 ```
 
