@@ -124,7 +124,7 @@ main() {
     print_info "Creating directories..."
 
     mkdir -p "$SKILLS_DIR" "$AGENTS_DIR" "$INSTALL_DIR"
-    mkdir -p "$INSTALL_DIR/scripts" "$INSTALL_DIR/schema" "$INSTALL_DIR/hooks"
+    mkdir -p "$INSTALL_DIR/scripts" "$INSTALL_DIR/schema" "$INSTALL_DIR/hooks" "$INSTALL_DIR/templates"
 
     print_success "Directory structure created"
 
@@ -195,11 +195,14 @@ main() {
     fi
 
     # ---- Install Report Templates ----
+    # Required by the geo-report-pdf skill, which reads
+    # ~/.claude/skills/geo/templates/{geo-report-template.html,geo-report-style.css}
     print_info "Installing report templates..."
     if [ -d "$SOURCE_DIR/templates" ]; then
-        mkdir -p "$INSTALL_DIR/templates"
         cp -r "$SOURCE_DIR/templates/"* "$INSTALL_DIR/templates/"
         print_success "Report templates installed → ${INSTALL_DIR}/templates/"
+    else
+        print_warning "templates/ not found in source — /geo report-pdf will not work."
     fi
 
     # ---- Install Hooks ----
